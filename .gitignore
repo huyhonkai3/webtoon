@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.next/
+
+.env
+.env.*
+!.env.example
+!.env.test.example
+
+apps/api/src/generated/
+
+*.tsbuildinfo
+coverage/
+.DS_Store

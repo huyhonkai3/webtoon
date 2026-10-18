@@ -1,0 +1,36 @@
+{
+  "name": "webtoon",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "npm run build -w @webtoon/contracts && concurrently -k -n contracts,api,web \"npm run dev -w @webtoon/contracts\" \"npm run dev -w @webtoon/api\" \"npm run dev -w @webtoon/web\"",
+    "build": "npm run build -w @webtoon/contracts && npm run build -w @webtoon/api && npm run build -w @webtoon/web",
+    "typecheck": "npm run build -w @webtoon/contracts && npm run typecheck --workspaces --if-present",
+    "lint": "eslint .",
+    "test": "npm run build -w @webtoon/contracts && npm run test -w @webtoon/api",
+    "test:integration": "npm run build -w @webtoon/contracts && npm run test:integration -w @webtoon/api",
+    "db:generate": "npm run db:generate -w @webtoon/api",
+    "db:migrate": "npm run db:migrate -w @webtoon/api --",
+    "db:deploy": "npm run db:deploy -w @webtoon/api",
+    "db:seed": "npm run db:seed -w @webtoon/api",
+    "db:studio": "npm run db:studio -w @webtoon/api",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "concurrently": "9.2.5",
+    "eslint": "9.39.5",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2"
+  },
+  "dependencies": {
+    "next": "16.4.2"
+  }
+}
