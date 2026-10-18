@@ -7,7 +7,8 @@ import helmet from "helmet";
 import { pinoHttp } from "pino-http";
 import type { Logger } from "pino";
 
-import { createSeriesRouter } from "./modules/series/series.routes.js";
+import { createAdminSeriesRouter, createSeriesRouter } from "./modules/series/series.routes.js";
+import { localAdminOnly } from "./middleware/local-admin-only.js";
 import type { SeriesRepository } from "./modules/series/series.repository.js";
 import { createHealthRouter } from "./modules/health/health.routes.js";
 
@@ -19,6 +20,7 @@ interface AppDependencies {
   checkDatabase: () => Promise<void>;
   logger: Logger;
   webOrigin: string;
+  localAdminEnabled?: boolean;
 }
 
 export function createApp(deps: AppDependencies) {
@@ -56,6 +58,14 @@ export function createApp(deps: AppDependencies) {
   app.use("/health", createHealthRouter(deps.checkDatabase));
 
   app.use("/api/v1/series", createSeriesRouter(deps.seriesRepository));
+
+  if (deps.localAdminEnabled) {
+    app.use(
+      "/api/v1/admin/series",
+      localAdminOnly(deps.webOrigin),
+      createAdminSeriesRouter(deps.seriesRepository),
+    );
+  }
 
   app.use((_req, _res, next) => {
     next(new AppError(404, "NOT_FOUND", "Không tìm thấy endpoint."));

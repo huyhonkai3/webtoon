@@ -19,11 +19,12 @@ model Series {
     title       String            @db.VarChar(200)
     slug        String            @unique @db.VarChar(220)
     description String?           @db.Text
-    status      PublicationStatus @default(DRAFT)
+    coverAssetId      String?           @map("cover_asset_id") @db.Uuid
+    publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
 
     createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
     updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
 
-    @@index([status, createdAt(sort: Desc), id(sort: Desc)])
+    @@index([publicationStatus, createdAt(sort: Desc), id(sort: Desc)])
     @@map("series")
 }

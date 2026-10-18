@@ -9,7 +9,7 @@ const config = [
       "**/dist/**",
       "**/.next/**",
       "**/generated/**",
-      "**/next-env.d.ts/**",
+      "**/next-env.d.ts",
     ],
   },
 

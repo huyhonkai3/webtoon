@@ -31,7 +31,7 @@ try {
 
       create: {
         ...sample,
-        status: "PUBLISHED",
+        publicationStatus: "PUBLISHED",
       },
     });
   }

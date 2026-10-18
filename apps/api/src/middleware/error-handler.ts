@@ -38,6 +38,7 @@ export const errorHandler: ErrorRequestHandler = (
         requestId,
       }
     })
+    return
   }
 
   if (
