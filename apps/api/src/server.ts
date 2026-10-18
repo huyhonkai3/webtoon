@@ -22,10 +22,11 @@ async function main() {
 
     logger,
     webOrigin: env.WEB_ORIGIN,
+    localAdminEnabled: env.NODE_ENV === 'development' && env.HOST === '127.0.0.1',
   });
 
-  const server = app.listen(env.PORT, () => {
-    logger.info({ port: env.PORT }, "API listening");
+  const server = app.listen(env.PORT, env.HOST, () => {
+    logger.info({ port: env.PORT, host: env.HOST }, "API listening");
   });
 
   let stopping = false;
@@ -57,8 +58,8 @@ async function main() {
     });
   };
 
-  process.on("SIGNINT", () => {
-    shutdown("SIGNINT");
+  process.on("SIGINT", () => {
+    shutdown("SIGINT");
   });
 
   process.on("SIGTERM", () => {

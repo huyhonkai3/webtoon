@@ -14,7 +14,7 @@
     "dev": "tsc -p tsconfig.json --watch",
     "typecheck": "tsc --noEmit"
   },
-  "devDependencies": {
+  "dependencies": {
     "zod": "4.6.7"
   }
 }

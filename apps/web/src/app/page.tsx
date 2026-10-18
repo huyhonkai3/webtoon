@@ -35,7 +35,7 @@ export default async function Home({
                     const number = (page - 1) * pagination.pageSize + index + 1
                     return (
                         <article key={series.id}>
-                            <div className='cover' aria-label='true'>
+                            <div className='cover' aria-hidden='true'>
                                 <span>
                                     {String(number).padStart(2, '0')}
                                 </span>

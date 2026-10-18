@@ -1,7 +1,6 @@
 import "server-only";
 
 import {
-  SeriesListResponse,
   seriesListResponseSchema,
 } from "@webtoon/contracts";
 
