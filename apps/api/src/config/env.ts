@@ -11,7 +11,7 @@ export const envSchema = z.object({
     'Phải dùng PostgreSQL URL',
   ),
 
-  WEB_ORIGIN: z.string().url().default('http://localhost:3000'),
+  WEB_ORIGIN: z.string().url().default('http://localhost:3001'),
 
   LOG_LEVEL: z.enum([
     'trace',
