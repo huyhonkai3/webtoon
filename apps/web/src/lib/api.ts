@@ -1,9 +1,6 @@
 import "server-only";
 
-import {
-  SeriesListResponse,
-  seriesListResponseSchema,
-} from "@webtoon/contracts";
+import { seriesListResponseSchema } from "@webtoon/contracts";
 
 export async function getSeries(page: number) {
   const base = process.env.API_BASE_URL;

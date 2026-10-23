@@ -11,6 +11,20 @@ export function createSeriesRouter(repository: SeriesRepository) {
   const controller = createSeriesController(service);
 
   router.get("/", controller.list);
+  router.get("/:slug", controller.getPublished);
+
+  return router;
+}
+
+export function createAdminSeriesRouter(repository: SeriesRepository) {
+  const router = Router();
+
+  const service = createSeriesService(repository);
+  const controller = createSeriesController(service);
+
+  router.post("/", controller.createDraft);
+  router.get("/:id", controller.getAdmin);
+  router.patch("/:id", controller.update);
 
   return router;
 }

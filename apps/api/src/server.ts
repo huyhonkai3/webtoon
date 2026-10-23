@@ -15,17 +15,25 @@ async function main() {
 
   const app = createApp({
     seriesRepository: createSeriesRepository(prisma),
-
     checkDatabase: async () => {
       await prisma.$queryRaw`SELECT 1`;
     },
 
     logger,
     webOrigin: env.WEB_ORIGIN,
+
+    localAdminEnabled:
+      env.NODE_ENV === "development" && env.HOST === "127.0.0.1",
   });
 
-  const server = app.listen(env.PORT, () => {
-    logger.info({ port: env.PORT }, "API listening");
+  const server = app.listen(env.PORT, env.HOST, () => {
+    logger.info(
+      {
+        port: env.PORT,
+        host: env.HOST,
+      },
+      "API listening",
+    );
   });
 
   let stopping = false;
@@ -41,7 +49,7 @@ async function main() {
 
     const timeout = setTimeout(() => {
       process.exit(1);
-    }, 10000).unref();
+    }, 10_000).unref();
 
     server.close(() => {
       void prisma
@@ -52,13 +60,14 @@ async function main() {
         })
         .catch((error: unknown) => {
           logger.fatal({ err: error }, "Disconnect failed");
+
           process.exit(1);
         });
     });
   };
 
-  process.on("SIGNINT", () => {
-    shutdown("SIGNINT");
+  process.on("SIGINT", () => {
+    shutdown("SIGINT");
   });
 
   process.on("SIGTERM", () => {
