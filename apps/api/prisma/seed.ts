@@ -2,7 +2,7 @@ import "dotenv/config";
 import { createPrisma } from "../src/database/prisma.js";
 
 if (!process.env.DATABASE_URL) {
-  throw new Error("DATABSE_URL is required");
+  throw new Error("DATABASE_URL is required");
 }
 
 const prisma = createPrisma(process.env.DATABASE_URL);

@@ -62,7 +62,7 @@ async function write(
     if (error instanceof SeriesSlugConflictError) {
       throw new AppError(
         409,
-        "SERIES SLUG CONFLICT",
+        "SERIES_SLUG_CONFLICT",
         "Slug truyện đã tồn tại.",
       );
     }

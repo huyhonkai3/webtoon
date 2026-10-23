@@ -33,7 +33,7 @@ export function createSeriesController(service: SeriesService) {
     const result = await service.createDraft(body);
 
     res
-      .location(`api/v1/admin/series/${result.data.id}`)
+      .location(`/api/v1/admin/series/${result.data.id}`)
       .status(201)
       .json(result);
   };
