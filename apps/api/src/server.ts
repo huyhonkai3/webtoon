@@ -4,6 +4,7 @@ import { createPrisma } from "./database/prisma.js";
 import { createApp } from "./app.js";
 
 import { createSeriesRepository } from "./modules/series/series.repository.js";
+import { createChapterRepository } from "./modules/chapters/chapters.repository.js";
 
 const env = loadEnv();
 const logger = createLogger(env.LOG_LEVEL);
@@ -18,6 +19,8 @@ async function main() {
     checkDatabase: async () => {
       await prisma.$queryRaw`SELECT 1`;
     },
+
+    chapterRepository: createChapterRepository(prisma),
 
     logger,
     webOrigin: env.WEB_ORIGIN,

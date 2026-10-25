@@ -25,6 +25,37 @@ model Series {
     createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
     updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
 
+    chapters Chapter[]
+
     @@index([publicationStatus, createdAt(sort: Desc), id(sort: Desc)])
     @@map("series")
+}
+
+model Chapter {
+    id                String            @id @default(uuid()) @db.Uuid
+    seriesId          String            @map("series_id") @db.Uuid
+    number            Int
+    title             String            @db.VarChar(200)
+    publicationStatus PublicationStatus @default(DRAFT) @map("publication_status")
+    createdAt         DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+    updatedAt         DateTime          @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+    series Series        @relation(fields: [seriesId], references: [id], onDelete: Cascade)
+    pages  ChapterPage[]
+
+    @@unique([seriesId, number])
+    @@index([seriesId, publicationStatus, number])
+    @@map("chapters")
+}
+
+model ChapterPage {
+    id        String @id @default(uuid()) @db.Uuid
+    chapterId String @map("chapter_id") @db.Uuid
+    position  Int
+    imageUrl  String @map("image_url") @db.VarChar(2048)
+
+    chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+    @@unique([chapterId, position])
+    @@map("chapter_pages")
 }

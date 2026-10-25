@@ -11,7 +11,7 @@ const titleSchema = z.string().trim().min(1).max(200);
 const slugSchema = z
   .string()
   .min(1)
-  .max(200)
+  .max(220)
   .regex(
     /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
     "Slug chỉ gồm chữ thường không dấu, số và dấu gạch nối giữa các từ.",
@@ -113,3 +113,4 @@ export type SeriesDetailResponse = z.infer<typeof seriesDetailResponseSchema>;
 export type AdminSeriesResponse = z.infer<typeof adminSeriesResponseSchema>;
 export type SeriesListResponse = z.infer<typeof seriesListResponseSchema>;
 export type ApiError = z.infer<typeof apiErrorSchema>;
+export * from "./chapters.js";
