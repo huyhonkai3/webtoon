@@ -23,7 +23,6 @@ import type { ChapterRepository } from "./modules/chapters/chapters.repository.j
 import { localAdminOnly } from "./middleware/local-admin-only.js";
 import { errorHandler } from "./middleware/error-handler.js";
 import { AppError } from "./shared/errors.js";
-import { Chapter } from "./generated/prisma/client.js";
 
 interface AppDependencies {
   seriesRepository: SeriesRepository;

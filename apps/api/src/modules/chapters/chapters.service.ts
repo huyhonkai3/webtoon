@@ -13,7 +13,6 @@ import {
   ChapterConcurrentUpdateError,
   ChapterNumberConflictError,
   ChapterPagesRequiredError,
-  ChapterPagesRequireError,
   ChapterSeriesNotFoundError,
 } from "./chapters.errors.js";
 
@@ -101,7 +100,7 @@ async function write(
       throw new AppError(404, "SERIES_NOT_FOUND", "Không tìm thấy truyện.");
     }
 
-    if (error instanceof ChapterPagesRequireError) {
+    if (error instanceof ChapterPagesRequiredError) {
       throw new AppError(
         404,
         "CHAPTER_PAGES_REQUIRED",
@@ -112,8 +111,8 @@ async function write(
     if (error instanceof ChapterConcurrentUpdateError) {
       throw new AppError(
         409,
-        "CHAPTER_CONCURENT_UPDATE",
-        "Chương vừa được cập nhật; hãy tải lai và thử lại.",
+        "CHAPTER_CONCURRENT_UPDATE",
+        "Chương vừa được cập nhật, hãy tải lại và thử lại.",
       );
     }
     throw error;

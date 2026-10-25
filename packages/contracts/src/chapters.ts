@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { publicationStatusSchema } from "./index.js";
+import { publicationStatusSchema } from "./publication-status.js";
 
 const numberSchema = z.number().int().min(1).max(2_147_483_647);
 const titleSchema = z.string().trim().min(1).max(200);

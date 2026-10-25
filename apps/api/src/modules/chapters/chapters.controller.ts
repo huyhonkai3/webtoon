@@ -11,7 +11,6 @@ import {
 } from "@webtoon/contracts";
 
 import type { ChapterService } from "./chapters.service.js";
-import { ParamsChange } from "next/dist/client/components/segment-cache/vary-path.js";
 
 export function createChapterController(service: ChapterService) {
   const listPublished: RequestHandler = async (req, res) => {

@@ -1,10 +1,5 @@
 import { z } from "zod";
-
-export const publicationStatusSchema = z.enum([
-  "DRAFT",
-  "PUBLISHED",
-  "ARCHIVED",
-]);
+import { publicationStatusSchema } from "./publication-status.js";
 
 const titleSchema = z.string().trim().min(1).max(200);
 
@@ -62,7 +57,7 @@ export const seriesSummarySchema = z.object({
   title: z.string(),
   slug: z.string(),
   description: z.string().nullable(),
-  coverAssetid: coverAssetIdSchema,
+  coverAssetId: coverAssetIdSchema,
   createdAt: z.string().datetime(),
 });
 
@@ -113,4 +108,5 @@ export type SeriesDetailResponse = z.infer<typeof seriesDetailResponseSchema>;
 export type AdminSeriesResponse = z.infer<typeof adminSeriesResponseSchema>;
 export type SeriesListResponse = z.infer<typeof seriesListResponseSchema>;
 export type ApiError = z.infer<typeof apiErrorSchema>;
+export * from "./publication-status.js";
 export * from "./chapters.js";
